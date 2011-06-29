@@ -71,13 +71,12 @@ void loop() {
   //int dis11=urm_action(urm11Act,sizeof(urm11Act),urm11Get,sizeof(urm11Get));
   //int dis12=urm_action(urm12Act,sizeof(urm12Act),urm12Get,sizeof(urm12Get));
   //int dis13=urm_action(urm13Act,sizeof(urm13Act),urm13Get,sizeof(urm13Get));
-  
-  if (Serial.available() > 0) {
       
-    x = Serial.read();
-    y = Serial.read();
-    r = Serial.read();
+    x = readInteger();
+    y = readInteger();
+    r = readInteger();
      
     mvt(x, y, r);
+    delay(500);
+    stop();
    }
-}
