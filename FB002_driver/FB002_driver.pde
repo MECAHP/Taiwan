@@ -37,7 +37,7 @@ Please set up your robot according to this diagram.  Sonar 0x14 is optional.
 unsigned char dislimit = 20;
 
 
-void slow2stop() {{
+/*void slow2stop() {{
     for (int i = speed; i > 0; i--) {
       analogWrite(E1,i);
       digitalWrite(M1,HIGH);
@@ -50,7 +50,7 @@ void slow2stop() {{
       delay(2);
   }
 }
-
+*/
 int readInteger() {
   int result = 0;
   int sign = 1;
@@ -72,6 +72,7 @@ int readInteger() {
   
   return sign * result;
 }
+
   
 
 
@@ -98,7 +99,7 @@ void loop() {
   //int dis13=urm_action(urm13Act,sizeof(urm13Act),urm13Get,sizeof(urm13Get));
   
   
-  if (Serial.available() > 0){
+ /* if (Serial.available() > 0){
       
     x = Serial.read();
     y = Serial.read();
@@ -106,7 +107,10 @@ void loop() {
      
     mvt(x, y, r);
    }
-  
+   
+   */
+   
+ 
   
   /*else if (dis11 < dislimit) { //right-hand sensor detects object
      strafeleft();
