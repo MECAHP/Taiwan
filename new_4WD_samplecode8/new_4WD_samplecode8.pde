@@ -214,12 +214,11 @@ void mvt(char x, char y, char r) {    // this fonction allows to do all possible
   int m4 = xNorm + yNorm - rNorm;
  
    analogWrite(E1, abs(m1));
-   if(m >= 0)
+   if(m1 >= 0)
      digitalWrite(M1, HIGH);
-   else 
+   else
      digitalWrite(M1, LOW);
-     
-   analogWrite(E2, abs(m2);
+   analogWrite(E2, abs(m2));
    if(m2 >= 0)
      digitalWrite(M2, HIGH);
    else 
@@ -231,12 +230,57 @@ void mvt(char x, char y, char r) {    // this fonction allows to do all possible
    else 
      digitalWrite(M3, LOW);
 
-  analogWrite(E4 abs(m4));
+  analogWrite(E4, abs(m4));
    if(m4 >= 0)
      digitalWrite(M4, HIGH);
    else
      digitalWrite(M4, LOW);
 }
+
+int readInteger() {
+  int result = 0, a = 0, i = 0;
+  
+  a = Serial.available();
+  do {
+    result += Serial.read()*pow(10, a - i);
+    i++; 
+  } while(Serial.peek() != ' ' & Serial.peek() != '\n' );
+  return result;
+}
+
+int readInteger2() {
+  int result = 0;
+  int sign = 1;
+  
+  while(Serial.available() == 0)
+    delay(1);
+  
+  if((Serial.peek() == '+' || Serial.peek() == '-') && Serial.read() == '-')
+    sign = -1;
+  
+  do
+  {
+    while('0' <= Serial.peek() && Serial.peek() <= '9')
+    {
+      result = result * 10 + Serial.read() - '0';
+    }
+  }
+  while(Serial.available() == 0);
+  
+  return sign * result;
+}
+  
+
+
+
+
+
+
+
+
+
+
+
 /******************** E N D  R O B O T  M O V E M E N T ***********************************/
 /********************** O T H E R   F U N C T I O N S *************************************/
 
@@ -252,12 +296,14 @@ void setup() {
 
 void loop() {
   
+  
   char x = 0, y = 0, r = 0;
   //Retrieve the distance from each ultrasonic sensor (0x11, 0x12, and 0x13)
   //int dis11=urm_action(urm11Act,sizeof(urm11Act),urm11Get,sizeof(urm11Get));
   //int dis12=urm_action(urm12Act,sizeof(urm12Act),urm12Get,sizeof(urm12Get));
   //int dis13=urm_action(urm13Act,sizeof(urm13Act),urm13Get,sizeof(urm13Get));
-    
+  
+  
   if (Serial.available() > 0){
       
     x = Serial.read();
