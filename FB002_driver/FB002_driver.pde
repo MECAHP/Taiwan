@@ -55,7 +55,7 @@ void slow2stop() {
 /********************** O T H E R   F U N C T I O N S *************************************/
 
 void setup() {
-    // Start serial communications.
+    // Start serial communications.  
     Serial.begin(19200);
     
     // PWM frequency change, optional
@@ -65,6 +65,7 @@ void setup() {
 }
 
 void loop() {
+  Serial.println(readInteger());
   
   char x = 0, y = 0, r = 0;
   
@@ -72,14 +73,5 @@ void loop() {
   //int dis11=urm_action(urm11Act,sizeof(urm11Act),urm11Get,sizeof(urm11Get));
   //int dis12=urm_action(urm12Act,sizeof(urm12Act),urm12Get,sizeof(urm12Get));
   //int dis13=urm_action(urm13Act,sizeof(urm13Act),urm13Get,sizeof(urm13Get));
-  
-  
-  if (Serial.available() > 0) { // TODO
-      
-    x = Serial.read();
-    y = Serial.read();
-    r = Serial.read();
-     
-    mvt(x, y, r);
-   }
+  delay(5);
 }
