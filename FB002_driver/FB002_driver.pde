@@ -27,6 +27,7 @@ Please set up your robot according to this diagram.  Sonar 0x14 is optional.
 #define E2 6       
 #define M2 7       
 
+
 //Motor control pins - Motors 3&4
 #define E3 9
 #define M3 8
@@ -36,9 +37,11 @@ Please set up your robot according to this diagram.  Sonar 0x14 is optional.
 //'dislimit' defines the minimum distance for obstacle detection and avoidance.
 unsigned char dislimit = 20;
 
-/*
+/* FIXME
 void slow2stop() {
     for (int i = 10; i > 0; i--) {
+
+
       analogWrite(E1,i);
       digitalWrite(M1,HIGH);
       analogWrite(E2,i);
@@ -52,10 +55,7 @@ void slow2stop() {
 }
 */
 
-/********************** O T H E R   F U N C T I O N S *************************************/
-
 void setup() {
-    // Start serial communications.  
     Serial.begin(19200);
     
     // PWM frequency change, optional
@@ -65,13 +65,19 @@ void setup() {
 }
 
 void loop() {
-  Serial.println(readInteger());
-  
   char x = 0, y = 0, r = 0;
   
   //Retrieve the distance from each ultrasonic sensor (0x11, 0x12, and 0x13)
   //int dis11=urm_action(urm11Act,sizeof(urm11Act),urm11Get,sizeof(urm11Get));
   //int dis12=urm_action(urm12Act,sizeof(urm12Act),urm12Get,sizeof(urm12Get));
   //int dis13=urm_action(urm13Act,sizeof(urm13Act),urm13Get,sizeof(urm13Get));
-  delay(5);
+  
+  if (Serial.available() > 0) {
+      
+    x = Serial.read();
+    y = Serial.read();
+    r = Serial.read();
+     
+    mvt(x, y, r);
+   }
 }
