@@ -79,7 +79,7 @@ void stop()
 }
 
 
-void keybordbord Control () {         // Warning !!! It's for AZERTY keyboards.
+void keybordbord () {         // Warning !!! It's for AZERTY keyboards.
   
   while(1) {
    
@@ -117,5 +117,5 @@ void keybordbord Control () {         // Warning !!! It's for AZERTY keyboards.
    delay(500);
    stop();
    
-   
+  }
   }

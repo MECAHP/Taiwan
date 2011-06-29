@@ -27,6 +27,7 @@ Please set up your robot according to this diagram.  Sonar 0x14 is optional.
 #define E2 6       
 #define M2 7       
 
+
 //Motor control pins - Motors 3&4
 #define E3 9
 #define M3 8
@@ -37,7 +38,8 @@ Please set up your robot according to this diagram.  Sonar 0x14 is optional.
 unsigned char dislimit = 20;
 
 
-/*void slow2stop() {{
+/*
+void slow2stop() {{
     for (int i = speed; i > 0; i--) {
       analogWrite(E1,i);
       digitalWrite(M1,HIGH);
@@ -99,16 +101,17 @@ void loop() {
   //int dis13=urm_action(urm13Act,sizeof(urm13Act),urm13Get,sizeof(urm13Get));
   
   
- /* if (Serial.available() > 0){
+   if (Serial.available() > 0){
       
-    x = Serial.read();
+    x = Serial.read()*100 + Serial.read()*10 ;
     y = Serial.read();
     r = Serial.read();
      
     mvt(x, y, r);
    }
    
-   */
+   delay(500);
+   stop();
    
  
   
