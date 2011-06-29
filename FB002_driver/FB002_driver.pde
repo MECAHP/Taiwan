@@ -56,7 +56,7 @@ void slow2stop() {
 */
 
 void setup() {
-    Serial.begin(19200);
+    Serial.begin(115200);
     
     // PWM frequency change, optional
     // Please refer to user manual for information on how to use this function
@@ -77,6 +77,6 @@ void loop() {
     r = readInteger();
      
     mvt(x, y, r);
-    delay(500);
-    stop();
-   }
+    
+    delay(50);
+}
