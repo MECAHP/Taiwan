@@ -36,9 +36,9 @@ Please set up your robot according to this diagram.  Sonar 0x14 is optional.
 //'dislimit' defines the minimum distance for obstacle detection and avoidance.
 unsigned char dislimit = 20;
 
-
-void slow2stop() {{
-    for (int i = speed; i > 0; i--) {
+/*
+void slow2stop() {
+    for (int i = 10; i > 0; i--) {
       analogWrite(E1,i);
       digitalWrite(M1,HIGH);
       analogWrite(E2,i);
@@ -50,55 +50,31 @@ void slow2stop() {{
       delay(2);
   }
 }
-
-int readInteger() {
-  int result = 0;
-  int sign = 1;
-  
-  while(Serial.available() == 0)
-    delay(1);
-  
-  if((Serial.peek() == '+' || Serial.peek() == '-') && Serial.read() == '-')
-    sign = -1;
-  
-  do
-  {
-    while('0' <= Serial.peek() && Serial.peek() <= '9')
-    {
-      result = result * 10 + Serial.read() - '0';
-    }
-  }
-  while(Serial.available() == 0);
-  
-  return sign * result;
-}
-  
-
-
+*/
 
 /********************** O T H E R   F U N C T I O N S *************************************/
 
 void setup() {
-    //Start serial communications.
+    // Start serial communications.
     Serial.begin(19200);
     
-    //PWM frequency change, optional
-    //Please refer to user manual for information on how to use this function
-    //TCCR1B = TCCR1B & 0xf8 | 0x01;    // Pin9,Pin10 PWM 31250Hz
-    //TCCR2B = TCCR2B & 0xf8 | 0x01;    // Pin3,Pin11 PWM 31250Hz
+    // PWM frequency change, optional
+    // Please refer to user manual for information on how to use this function
+    // TCCR1B = TCCR1B & 0xf8 | 0x01;    // Pin9,Pin10 PWM 31250Hz
+    // TCCR2B = TCCR2B & 0xf8 | 0x01;    // Pin3,Pin11 PWM 31250Hz
 }
 
 void loop() {
   
-  
   char x = 0, y = 0, r = 0;
+  
   //Retrieve the distance from each ultrasonic sensor (0x11, 0x12, and 0x13)
   //int dis11=urm_action(urm11Act,sizeof(urm11Act),urm11Get,sizeof(urm11Get));
   //int dis12=urm_action(urm12Act,sizeof(urm12Act),urm12Get,sizeof(urm12Get));
   //int dis13=urm_action(urm13Act,sizeof(urm13Act),urm13Get,sizeof(urm13Get));
   
   
-  if (Serial.available() > 0){
+  if (Serial.available() > 0) { // TODO
       
     x = Serial.read();
     y = Serial.read();
@@ -106,21 +82,4 @@ void loop() {
      
     mvt(x, y, r);
    }
-  
-  
-  /*else if (dis11 < dislimit) { //right-hand sensor detects object
-     strafeleft();
-      turnclkwse();
-    }
-    else if (dis13 < dislimit) { //left-hand sensor detects object
-      straferight();
-      turnanticlkwse();
-    }
-    else if (dis12 < dislimit+50) { //front sensor detects object
-      slow2stop();
-      backback();
-      turnclkwse();
-      turnclkwse();
-    }
-    */
 }
