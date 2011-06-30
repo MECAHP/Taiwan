@@ -68,14 +68,7 @@ unsigned char urm_recvDat(unsigned char size) {
   }
 }
 
-void urm_showDat(unsigned char size) {
-	urm_setMode(urm_TX);
-    for(int i=0;i<size;++i) {
-		Serial.print(urm_rcvbuf[i],HEX);
-                Serial.print(" ");
-    }
-    Serial.println("");
-}
+
 
 int urm_action(unsigned char* act0,unsigned char act0_size,unsigned char* act1,unsigned char act1_size) {
   
