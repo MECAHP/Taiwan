@@ -37,7 +37,7 @@ Please set up your robot according to this diagram.  Sonar 0x14 is optional.
 //'dislimit' defines the minimum distance for obstacle detection and avoidance.
 unsigned char dislimit = 20;
 
-/* FIXME
+/* FIXME ^^
 void slow2stop() {
     for (int i = 10; i > 0; i--) {
 
@@ -56,7 +56,7 @@ void slow2stop() {
 */
 
 void setup() {
-    Serial.begin(115200);
+    Serial.begin(19200);
     
     // PWM frequency change, optional
     // Please refer to user manual for information on how to use this function
@@ -77,6 +77,4 @@ void loop() {
     r = readInteger();
      
     mvt(x, y, r);
-    
-    delay(50);
 }

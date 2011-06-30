@@ -34,11 +34,13 @@ unsigned char urm13Get[]={0x55,0xaa,0x13,0x00,0x02,0x14};
 
 int urm_checksum(unsigned char size) {
     unsigned char sum = 0;
-    if(urm_rcvbuf[0] == 0) return -1;
-    for(int i = 0; i < size-1; ++i) {
+    if(urm_rcvbuf[0] == 0) 
+        return -1;
+    for(int i = 0; i < size - 1; ++i) {
         sum += urm_rcvbuf[i];
     }
-    if(sum != urm_rcvbuf[size-1]) return -1;
+    if(sum != urm_rcvbuf[size - 1]) 
+        return -1;
     else return 0;
 }
 
@@ -48,24 +50,26 @@ int urm_setMode (int mode) {		// HIGH:urm_TX, LOW:urm_RX
 }
 
 unsigned char urm_sendCmd(unsigned char urm[],unsigned char size) {
-	urm_setMode(urm_TX);
-  for(int i=0;i<size;++i) {
+  urm_setMode(urm_TX);
+  for(int i = 0 ; i < size; ++i) {
       Serial.print(urm[i]);
   }
   return size;
 }
 
 unsigned char urm_recvDat(unsigned char size) {
-  for(int i=0;i<sizeof(urm_rcvbuf);++i) {
-      urm_rcvbuf[i]=0;
-  }
-	urm_setMode(urm_RX);
-   for(int i=0,j=0;i<size&&j<5000;++j) {
-    unsigned char ibyte=Serial.read();
-    if(0<=ibyte && ibyte<0xff) {
-        urm_rcvbuf[i++]=ibyte;
-    }
-  }
+   unsigned char ibyte;
+   
+   for(int i = 0 ; i < sizeof(urm_rcvbuf); ++i) {
+       urm_rcvbuf[i] = 0;
+   }
+   urm_setMode(urm_RX);
+   for(int i = 0, j = 0 ; i < size && j < 5000; ++j) {
+      ibyte = Serial.read();
+      if(0 <= ibyte && ibyte < 0xff) {
+         urm_rcvbuf[i++] = ibyte;
+      }
+   }
 }
 
 void urm_showDat(unsigned char size) {
