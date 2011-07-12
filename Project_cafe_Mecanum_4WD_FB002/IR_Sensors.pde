@@ -12,5 +12,5 @@ float affineDist (char nbPin) {
    if (dist < 7 || dist > 45)          // Values under 7 cm and over 45 cm are OUT OF RANGE
       return -1;
       
-   return round(dist) ; 
+   return round((dist - 7) * 100 / (45 - 7)) ; // To have a value between 0 and 100 instead of 7 and 45. 
 }

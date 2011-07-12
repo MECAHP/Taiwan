@@ -8,10 +8,17 @@
  
 void mvt (char x, char y, char r)
 {
+  int xNorm = 0, yNorm = 0, rNorm = 0;
   // Normalise values so that their sum can't exceed 255 (maximum power).
-  int xNorm = x * 255 / (127 * 1); 
-  int yNorm = y * 255 / (127 * 1);
-  int rNorm = r * 255 / (127 * 1);
+  if (x > 100 && x < 127 && y == 0 && r == 0)    // That's for the maximum speed.
+     xNorm = x * 255 / (127 * 2);
+  if (x == 127 && y == 0 && r == 0)
+     xNorm = x * 255 / 127;x
+  if(x <= 100) {
+    xNorm = x * 255 / (127 * 3);
+    yNorm = y * 255 / (127 * 3);
+    rNorm = r * 255 / (127 * 3);
+  }
  
   // Compute algebraic motor speeds according to the influence of each basic movement (forward, strafe, turn).
   int m1 = - xNorm + yNorm - rNorm;
@@ -23,11 +30,11 @@ void mvt (char x, char y, char r)
   // Each test returns a boolean (true or false), which is equivalent to HIGH or LOW.
   digitalWrite(M1, m1 >= 0);
   digitalWrite(M2, m2 >= 0);
-  digitalWrite(M3, m3 >= 0);
+  digitalWrite(M3, m3 >= 
+     0);
   digitalWrite(M4, m4 >= 0);
   
-  // Set the power of each motor.
-  analogWrite(E1, abs(m1));
+  
   analogWrite(E2, abs(m2));
   analogWrite(E3, abs(m3));
   analogWrite(E4, abs(m4));
@@ -95,8 +102,9 @@ void ramp (char x, char y, char r) {
     newcmd = 0;
     i = 0;
   }
-  
-  if (fabs(x1 - x) > epsilon || fabs(y1 - y) > epsilon || fabs(r1 - r) > epsilon || error ) {
+  if(x == 0 && y == 0 && r == 0)
+    mvt(0, 0, 0); 
+  else if (fabs(x1 - x) > epsilon || fabs(y1 - y) > epsilon || fabs(r1 - r) > epsilon || error ) {
     i++;
     mvt((char)(x2 + i*stepx), (char)(y2 + i*stepy), (char)(r2 + i*stepr));            // The ramp is creating here. We change gradually values in x, y and r
     x1 = (x2 + i*stepx);                                                              // Each time, we copy values in x, y and r.  
@@ -111,7 +119,7 @@ void ramp (char x, char y, char r) {
     r1 = r;  
   }
   
-  delay(1);           // This delay allow to control ramp's slope. 
+  delay(2);           // This delay allow to control ramp's slope. 
 }
 
 
@@ -120,6 +128,24 @@ void ramp (char x, char y, char r) {
  * Control the robot with the Serial Monitor by sending AZERTY key presses.
  */
  
+void keybordControl () {
+   x = readInteger();
+   y = readInteger();
+   r = readInteger();
+   ramp(x, y, r);
+   newcmd = 1; 
+}
+
+void remoteControl () {
+    x = readInteger();
+    y = readInteger();
+    r = readInteger();
+    x1 = x;
+    y1 = y;
+    r1 = r;
+    mvt(x, y, r); 
+}
+
 void remoteDebug()
 {
   while(1) {

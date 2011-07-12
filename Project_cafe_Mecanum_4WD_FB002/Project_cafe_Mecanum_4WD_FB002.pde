@@ -6,7 +6,7 @@ Please set up your robot according to this diagram.  Sonar 0x14 is optional.
             Positif way of rotation :           |                             |
                    ___                        M3|                             |M2                   
                  /                              |                             |
-                |                               |                             |                             |                             |
+                |                               |                             |
                  \--->                          |                             |
                                      IR_left : 2|                             |IR_Right : 0
                         X                       |                             |
@@ -82,15 +82,13 @@ void setup() {
 
 void loop() {
      
-  if(Serial.available() != 0 && Serial.read() == 'M') {
-    x = readInteger();
-    y = readInteger();
-    r = readInteger();
-    
-    newcmd = 1;
+  if(Serial.available() != 0) {
+    char cmd = Serial.read();
+    if (cmd == 'K')                                   // 'K' to say the keyboard is using, thus ramp() is using.
+      keyboardControl();
+    else if(cmd == 'R')                                  // 'R' to say the remote is using, speed is entirely control by the user.
+      remoteControl();
   }
-  
-  ramp(x, y, r);
   
   if (millis() - time > 200) {
   Serial.print('S');
@@ -101,7 +99,7 @@ void loop() {
   Serial.print(affineDist(IR_Left), 0);
   Serial.println();
   time = millis();
-  }    
+  }
 }
 
 
