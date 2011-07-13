@@ -13,7 +13,7 @@ void mvt (char x, char y, char r)
   if (x > 100 && x < 127 && y == 0 && r == 0)    // That's for the maximum speed.
      xNorm = x * 255 / (127 * 2);
   if (x == 127 && y == 0 && r == 0)
-     xNorm = x * 255 / 127;x
+     xNorm = x * 255 / 127;
   if(x <= 100) {
     xNorm = x * 255 / (127 * 3);
     yNorm = y * 255 / (127 * 3);
@@ -30,8 +30,7 @@ void mvt (char x, char y, char r)
   // Each test returns a boolean (true or false), which is equivalent to HIGH or LOW.
   digitalWrite(M1, m1 >= 0);
   digitalWrite(M2, m2 >= 0);
-  digitalWrite(M3, m3 >= 
-     0);
+  digitalWrite(M3, m3 >= 0);
   digitalWrite(M4, m4 >= 0);
   
   
@@ -102,8 +101,14 @@ void ramp (char x, char y, char r) {
     newcmd = 0;
     i = 0;
   }
-  if(x == 0 && y == 0 && r == 0)
-    mvt(0, 0, 0); 
+  
+  if(x == 0 && y == 0 && r == 0) {
+    mvt(0, 0, 0);
+    x1 = 0;
+    y1 = 0;
+    r1 = 0; 
+  }
+  
   else if (fabs(x1 - x) > epsilon || fabs(y1 - y) > epsilon || fabs(r1 - r) > epsilon || error ) {
     i++;
     mvt((char)(x2 + i*stepx), (char)(y2 + i*stepy), (char)(r2 + i*stepr));            // The ramp is creating here. We change gradually values in x, y and r
@@ -128,7 +133,7 @@ void ramp (char x, char y, char r) {
  * Control the robot with the Serial Monitor by sending AZERTY key presses.
  */
  
-void keybordControl () {
+void keyboardControl () {
    x = readInteger();
    y = readInteger();
    r = readInteger();

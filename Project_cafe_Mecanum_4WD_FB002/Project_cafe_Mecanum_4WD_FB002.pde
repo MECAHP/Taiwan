@@ -86,7 +86,7 @@ void loop() {
     char cmd = Serial.read();
     if (cmd == 'K')                                   // 'K' to say the keyboard is using, thus ramp() is using.
       keyboardControl();
-    else if(cmd == 'R')                                  // 'R' to say the remote is using, speed is entirely control by the user.
+    else if(cmd == 'R')                               // 'R' to say the remote is using, speed is entirely control by the user.
       remoteControl();
   }
   
