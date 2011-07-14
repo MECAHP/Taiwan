@@ -13,4 +13,20 @@ float affineDist (char nbPin) {
       return -1;
       
    return round((dist - 7) * 100 / (45 - 7)) ; // To have a value between 0 and 100 instead of 7 and 45. 
+                                               // 0 means there is an obstacle just close to the robot.
+}
+
+// obstacle() allows to stop automatically the robot in front of an obstacle.
+void obstacle (char rightSensor, char centerSensor, char leftSensor) {
+ if (rightSensor <  20 && y > 0) {
+   y = 0;
+ }
+ 
+ if (leftSensor < 20 && y < 0) {
+   y = 0;
+ }
+ 
+ if (centerSensor < 20 && x > 0) {
+   x = 0;
+ }
 }

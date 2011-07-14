@@ -39,9 +39,9 @@ Please set up your robot according to this diagram.  Sonar 0x14 is optional.
 //                                   SENSORS                                      //
 ////////////////////////////////////////////////////////////////////////////////////
 
-char IR_Right = 0;
+char IR_Left = 0;
 char IR_Center = 1;
-char IR_Left = 2;
+char IR_Right = 2;
 
 ////////////////////////////////////////////////////////////////////////////////////
 //                              FOR THE PROGRAM                                   //
@@ -59,6 +59,8 @@ float stepx = 0, stepy = 0, stepr = 0;   // It is to calculate the different ste
 char newcmd = 0;                         // 1 if there are new set point values. Otherwise it is 0
 int i = 0;                               // It is for the function ramp()
 char error = 0;                          // error = 0 if in calcstep() max = 0
+char actObst = 0;                        // 1 to activate the function obstacle()
+char cmd = 0;
 
 ////////////////////////////////////////////////////////////////////////////////////
 //                                  SETUP                                         //
@@ -83,12 +85,17 @@ void setup() {
 void loop() {
      
   if(Serial.available() != 0) {
-    char cmd = Serial.read();
-    if (cmd == 'K')                                   // 'K' to say the keyboard is using, thus ramp() is using.
-      keyboardControl();
-    else if(cmd == 'R')                               // 'R' to say the remote is using, speed is entirely control by the user.
-      remoteControl();
+    cmd = Serial.read();
+    x = readInteger();
+    y = readInteger();
+    r = readInteger();
+    newcmd = 1;
   }
+  
+  if (cmd == 'K')                            // 'K' to say the keyboard is using, thus ramp() is using.
+     ramp(x, y, r);
+  else if(cmd == 'R')                        // 'R' to say the remote is using, speed is entirely control by the user.
+      mvt(x, y, r);
   
   if (millis() - time > 200) {
   Serial.print('S');
