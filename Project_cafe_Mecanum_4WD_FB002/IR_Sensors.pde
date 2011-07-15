@@ -21,16 +21,16 @@ void obstacle (char rightSensor, char centerSensor, char leftSensor) {
  if (rightSensor != -1 && rightSensor <  40) {
    if(y > 0)
      y = 0;
-   if(fabs(r) > 30) {
-     r = sign(r) * 30;
+   if(fabs(r) > 40) {
+     r = sign(r) * 40;
    }
  }
  
  if (leftSensor != -1 && leftSensor < 40) {
    if(y < 0)
      y = 0;
-  if(fabs(r) > 30) {
-     r = sign(r) * 30;
+  if(fabs(r) > 40) {
+     r = sign(r) * 40;
    }
  }
  

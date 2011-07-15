@@ -110,17 +110,9 @@ void ramp (char x, char y, char r) {
   
   if(x == 0 && y == 0 && r == 0) {     // We create a particular case to break both softly and  firmly
     if(s == 1) {
-       if(i < 2 * sup) {
-         i++;
-         mvt((char)(x2 + i*stepx), (char)(y2 + i*stepy), (char)(r2 + i*stepr));
-         x1 = (x2 + i*stepx);
-         y1 = (y2 + i*stepy);
-         r1 = (r2 + i*stepr);
-         if((sign(x1) != sign(x2) || sign(y1) != sign(y2) || sign(r1) != sign(r2)) && ((fabs(x1) > 100) || fabs(y1) > 100 || fabs(r1) > 100))
-            delay(3);
-       }
-       else
-         s = 0;
+        mvt(-x1, -y1, -r1);
+        delay(25);
+        s = 0;
     }
     
     else { 

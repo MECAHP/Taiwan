@@ -6,7 +6,7 @@ Please set up your robot according to this diagram.  Sonar 0x14 is optional.
             Positif way of rotation :           |                             |
                    ___                        M3|                             |M2                   
                  /                              |                             |
-                |                               |                             |                             |                             |
+                |                               |                             |
                  \--->                          |                             |
                                      IR_left : 2|                             |IR_Right : 0
                         X                       |                             |
